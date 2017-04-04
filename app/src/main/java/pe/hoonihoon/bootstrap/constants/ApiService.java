@@ -29,7 +29,8 @@ public interface ApiService {
     Observable<ArrayList<Comment>> loadComment(@Query("postId")int postId);
 
     /**
-     *   동기와 비동기의 call 이 두개의 메서드를 정의 해야 하는 단점.
+     *   Retrofit1 에서 동기와 비동기의 call 이 두개의 메서드를 정의 해야 하는 단점.
+     *   Retrofit2 에서 해결.
      *
      */
 }
