@@ -4,7 +4,7 @@ package pe.hoonihoon.bootstrap.view.vo;
  * Created by 152317 on 2017-04-03.
  */
 
-public class Comment extends Result {
+public class Comment {
 
     private String postId;
     private String id;
