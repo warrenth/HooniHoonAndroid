@@ -5,5 +5,6 @@ package pe.hoonihoon.bootstrap.constants;
  */
 
 public class BaseUrl {
-    public static final String RETROFIT_TEST_API_URL = "http://static.ssgcdn.com";
+
+    public static final String SAMPLE_URL = "http://jsonplaceholder.typicode.com/";
 }

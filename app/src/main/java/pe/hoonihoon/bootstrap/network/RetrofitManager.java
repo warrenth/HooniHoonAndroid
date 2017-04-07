@@ -15,18 +15,19 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitManager {
     private static RetrofitManager sInstance = new RetrofitManager();
+
     private OkHttpClient mClint;
     private Retrofit mRetrofit;
 
     public RetrofitManager() {
-        OkHttpClient client = new OkHttpClient.Builder()
+        mClint = new OkHttpClient.Builder()
                 .retryOnConnectionFailure(true)
                 .connectTimeout(15, TimeUnit.SECONDS)
                 .build();
 
         mRetrofit = new Retrofit.Builder()
-                .baseUrl(BaseUrl.RETROFIT_TEST_API_URL)
-                .client(client)
+                .baseUrl(BaseUrl.SAMPLE_URL)
+                .client(mClint)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -38,5 +39,14 @@ public class RetrofitManager {
 
     public Retrofit getRetrofit() {
         return mRetrofit;
+    }
+
+    public void changeApiBaseUrl(String url) {
+        mRetrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .client(mClint)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
     }
 }

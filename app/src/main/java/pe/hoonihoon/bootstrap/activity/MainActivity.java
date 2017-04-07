@@ -4,13 +4,15 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
+import java.io.IOException;
+import java.util.ArrayList;
+
 import pe.hoonihoon.bootstrap.R;
-import pe.hoonihoon.bootstrap.network.api.ApiServiceController;
-import pe.hoonihoon.bootstrap.view.vo.ServiceResult;
+import pe.hoonihoon.bootstrap.network.api.ServiceController;
+import pe.hoonihoon.bootstrap.view.vo.Comment;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -20,18 +22,48 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /**
-         * Retrofit 1.0
-         */
 
         /**
-         * Retrofit 2.0
+         * Retrofit 1.0  동기
          */
+        //Response<ArrayList<Comment>> comment = ServiceController.getSampleApiService().loadComment(1).execute();
 
         /**
-         * Restrofit 2.0 + RxJava
+         * Retrofit 1.0  비동기
          */
-        ApiServiceController
+        ServiceController.getSampleApiService().loadComment(1, new Callback<ArrayList<Comment>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Comment>> call, Response<ArrayList<Comment>> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Comment>> call, Throwable t) {
+
+            }
+        });
+
+
+        /**
+         * Retrofit 2.0 비동기
+         */
+        Call<ArrayList<Comment>> comment =  ServiceController.getSampleApiService().loadComment(1);
+        comment.enqueue(new Callback<ArrayList<Comment>>() {
+                            @Override
+                            public void onResponse(Call<ArrayList<Comment>> call, Response<ArrayList<Comment>> response) {
+                                Log.d("kth","response : " + response.body());
+                            }
+
+                            @Override
+                            public void onFailure(Call<ArrayList<Comment>> call, Throwable t) {
+                                Log.d("kth","response : " + t);
+                            }
+                        });
+
+        /**
+        * Restrofit 2.0 + RxJava
+        */
+        /*ServiceController
                 .getCdnApiService()
                 .getSubjectList()
                 .subscribeOn(Schedulers.newThread())
@@ -57,6 +89,6 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete() {
 
                     }
-                });
+                });*/
     }
 }
