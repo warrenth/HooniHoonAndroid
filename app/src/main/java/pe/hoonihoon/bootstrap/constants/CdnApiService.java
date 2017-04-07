@@ -10,7 +10,7 @@ import retrofit2.http.GET;
 
 public interface CdnApiService {
 
-    @GET("/ui/app/test/subject01.json")
+    @GET("**")
     Observable<ServiceResult> getSubjectList();
 
 /*
